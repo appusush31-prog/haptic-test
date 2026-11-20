@@ -1,70 +1,317 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haptic Feedback Simulation</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #121212;
-            color: #ffffff;
-        }
-        button {
-            padding: 20px 40px;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 10px;
-        }
-        #startBtn { background-color: #cf6679; color: black; }
-        #stopBtn { background-color: #03dac6; color: black; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Congratulations! Your New iPhone!</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #29204b, #090914 65%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    padding: 25px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.badge {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #ffcc70, #ff8177);
+    color: #171321;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    animation: pulse 1.5s infinite;
+}
+
+h1 {
+    font-size: clamp(35px, 8vw, 65px);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(90deg, #ffe29f, #ffa99f, #ff719a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    color: #d5cce9;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.phone {
+    font-size: 120px;
+    margin: 15px 0;
+    display: inline-block;
+    filter: drop-shadow(0 0 30px #a477ff);
+    animation: float 2s ease-in-out infinite;
+}
+
+.message {
+    font-size: 21px;
+    font-weight: bold;
+    color: #ffe5a8;
+    margin: 15px 0;
+}
+
+.description {
+    color: #c2bad6;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+button {
+    border: none;
+    border-radius: 50px;
+    padding: 17px 30px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    margin: 8px;
+    transition: transform .2s;
+}
+
+button:hover {
+    transform: scale(1.06);
+}
+
+#startBtn {
+    background: linear-gradient(90deg, #ffcf70, #ff8e91);
+    color: #171321;
+}
+
+#stopBtn {
+    background: #29243b;
+    color: white;
+    border: 1px solid #74648d;
+}
+
+.status {
+    margin-top: 15px;
+    color: #b9a9db;
+    font-size: 13px;
+}
+
+.popup {
+    position: fixed;
+    z-index: 5;
+    background: rgba(255,255,255,.13);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 15px;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    animation: popup 3s ease forwards;
+    pointer-events: none;
+}
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    z-index: 1;
+    animation: fall linear infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes pulse {
+    50% { transform: scale(1.08); }
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+
+@keyframes popup {
+    0% { opacity: 0; transform: scale(.5); }
+    15% { opacity: 1; transform: scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-50px); }
+}
+
+@media(max-width: 480px) {
+    .phone { font-size: 95px; }
+    .subtitle { font-size: 16px; }
+    .message { font-size: 18px; }
+}
+</style>
 </head>
+
 <body>
- 
-    <h2>Haptic Test Engine</h2>
-    <p>Simulating continuous motor patterns</p>
-    
-    <button id="startBtn" onclick="startVibration()">Start Loop</button>
-    <button id="stopBtn" onclick="stopVibration()">Stop Loop</button>
- 
-    <script>
-        let vibrationInterval;
- 
-        function startVibration() {
-            // Check if the browser supports the Vibration API
-            if (!navigator.vibrate) {
-                alert("Your browser or device does not support the Vibration API.");
-                return;
-            }
- 
-            // Clear any existing intervals first
-            clearInterval(vibrationInterval);
- 
-            // Trigger immediately: vibrate for 2000ms (2 seconds)
-            navigator.vibrate(2000);
- 
-            // Repeat the vibration request every 2000ms to keep it continuous
-            vibrationInterval = setInterval(() => {
-                navigator.vibrate(2000);
-            }, 2000);
-        }
- 
-        function stopVibration() {
-            // Clearing the interval stops future triggers
-            clearInterval(vibrationInterval);
-            // Passing 0 or an empty array to navigator.vibrate cancels active vibrations
-            navigator.vibrate(0);
-        }
-    </script>
+
+<div class="container">
+
+    <div class="badge">✨ SPECIAL SURPRISE ✨</div>
+
+    <h1>CONGRATULATIONS!</h1>
+
+    <p class="subtitle">Guess what? Something AMAZING just happened!</p>
+
+    <div class="phone">📱</div>
+
+    <div class="message">
+        🎉 YOU GOT YOUR NEW IPHONE! 🎉
+    </div>
+
+    <p class="description">
+        It's official! Your brand-new iPhone is waiting for you.
+        <br>
+        New phone. New memories. New beginnings! ❤️
+    </p>
+
+    <div>
+        <button id="startBtn">🎊 CELEBRATE AGAIN</button>
+        <button id="stopBtn">STOP VIBRATION</button>
+    </div>
+
+    <p class="status" id="status">
+        🎁 Your surprise has arrived!
+    </p>
+
+</div>
+
+<script>
+
+let vibrationInterval;
+let popupInterval;
+
+const statusText = document.getElementById("status");
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
+
+// Confetti generator
+function createConfetti() {
+    const symbols = ["🎉", "✨", "🎊", "💖", "⭐", "🥳", "🎁"];
+
+    const item = document.createElement("div");
+    item.className = "confetti";
+    item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.animationDuration = (3 + Math.random() * 4) + "s";
+    item.style.fontSize = (15 + Math.random() * 20) + "px";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => item.remove(), 7000);
+}
+
+setInterval(createConfetti, 180);
+
+// Celebration popups
+const messages = [
+    "🎉 YOU WON AN IPHONE!",
+    "📱 BEST SURPRISE EVER!",
+    "🥳 CONGRATULATIONS!",
+    "✨ IT'S YOUR LUCKY DAY!",
+    "💖 ENJOY YOUR NEW PHONE!"
+];
+
+function showPopup() {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerText = messages[
+        Math.floor(Math.random() * messages.length)
+    ];
+
+    popup.style.left = (5 + Math.random() * 65) + "vw";
+    popup.style.top = (10 + Math.random() * 75) + "vh";
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => popup.remove(), 3000);
+}
+
+popupInterval = setInterval(showPopup, 2200);
+
+// Vibration engine
+function startVibration() {
+
+    if (!navigator.vibrate) {
+        statusText.innerText =
+            "Your browser does not support vibration. Try Android Chrome.";
+
+        return;
+    }
+
+    clearInterval(vibrationInterval);
+
+    // Initial vibration
+    const success = navigator.vibrate(2000);
+
+    if (success === false) {
+        statusText.innerText =
+            "Vibration was blocked. Tap Celebrate Again to enable it.";
+
+        return;
+    }
+
+    // Repeat vibration
+    vibrationInterval = setInterval(() => {
+        navigator.vibrate(2000);
+    }, 2100);
+
+    statusText.innerText = "🎉 CELEBRATION MODE ACTIVATED! 🎉";
+}
+
+function stopVibration() {
+    clearInterval(vibrationInterval);
+
+    if (navigator.vibrate) {
+        navigator.vibrate(0);
+    }
+
+    statusText.innerText = "Vibration stopped. Enjoy your new iPhone! ❤️";
+}
+
+startBtn.addEventListener("click", startVibration);
+stopBtn.addEventListener("click", stopVibration);
+
+// Attempt automatic vibration on page load
+window.addEventListener("load", () => {
+    startVibration();
+});
+
+// Stop vibration when the page is closed or hidden
+window.addEventListener("pagehide", stopVibration);
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        stopVibration();
+    }
+});
+
+</script>
+
 </body>
 </html>
