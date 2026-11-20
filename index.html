@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Congratulations! Your New iPhone!</title>
+<title>Your iPhone Surprise!</title>
 
 <style>
 * {
@@ -16,62 +16,58 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     min-height: 100vh;
-    background: radial-gradient(circle at top, #29204b, #090914 65%);
+    background: radial-gradient(circle at top, #29204b, #090914 75%);
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
 .container {
+    width: 100%;
+    max-width: 600px;
+    padding: 25px;
     position: relative;
     z-index: 2;
-    padding: 25px;
-    max-width: 600px;
-    width: 100%;
 }
 
 .badge {
     display: inline-block;
+    background: linear-gradient(90deg, #ffe29f, #ffa99f);
+    color: #171321;
     padding: 10px 22px;
     border-radius: 30px;
-    background: linear-gradient(90deg, #ffcc70, #ff8177);
-    color: #171321;
-    font-weight: 800;
-    font-size: 13px;
+    font-weight: 900;
     letter-spacing: 2px;
     margin-bottom: 25px;
-    animation: pulse 1.5s infinite;
 }
 
 h1 {
-    font-size: clamp(35px, 8vw, 65px);
+    font-size: clamp(38px, 8vw, 65px);
     font-weight: 900;
     line-height: 1.1;
     background: linear-gradient(90deg, #ffe29f, #ffa99f, #ff719a);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 15px;
 }
 
 .subtitle {
     color: #d5cce9;
-    font-size: 18px;
-    margin-bottom: 25px;
+    font-size: 17px;
+    margin: 20px 0;
 }
 
 .phone {
     font-size: 120px;
-    margin: 15px 0;
-    display: inline-block;
+    margin: 20px;
+    animation: float 1s infinite ease-in-out;
     filter: drop-shadow(0 0 30px #a477ff);
-    animation: float 2s ease-in-out infinite;
 }
 
 .message {
-    font-size: 21px;
+    font-size: 22px;
     font-weight: bold;
     color: #ffe5a8;
     margin: 15px 0;
@@ -80,102 +76,137 @@ h1 {
 .description {
     color: #c2bad6;
     line-height: 1.7;
-    margin-bottom: 25px;
-}
-
-button {
-    border: none;
-    border-radius: 50px;
-    padding: 17px 30px;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-    margin: 8px;
-    transition: transform .2s;
-}
-
-button:hover {
-    transform: scale(1.06);
-}
-
-#startBtn {
-    background: linear-gradient(90deg, #ffcf70, #ff8e91);
-    color: #171321;
-}
-
-#stopBtn {
-    background: #29243b;
-    color: white;
-    border: 1px solid #74648d;
-}
-
-.status {
-    margin-top: 15px;
-    color: #b9a9db;
-    font-size: 13px;
-}
-
-.popup {
-    position: fixed;
-    z-index: 5;
-    background: rgba(255,255,255,.13);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 15px;
-    padding: 14px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    animation: popup 3s ease forwards;
-    pointer-events: none;
 }
 
 .confetti {
     position: fixed;
-    top: -20px;
+    top: -30px;
     z-index: 1;
-    animation: fall linear infinite;
+    animation: fall linear forwards;
     pointer-events: none;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
+.popup {
+    position: fixed;
+    z-index: 3;
+    padding: 15px 22px;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 15px;
+    font-weight: bold;
+    animation: popup 2.5s forwards;
+    pointer-events: none;
 }
 
-@keyframes pulse {
-    50% { transform: scale(1.08); }
+#bankScreen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: radial-gradient(circle at top, #471c25, #100609 75%);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: reveal .6s ease;
+}
+
+.bank-card {
+    width: 100%;
+    max-width: 430px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,90,90,.3);
+    border-radius: 25px;
+    padding: 35px 22px;
+    box-shadow: 0 0 60px rgba(255,0,0,.15);
+}
+
+.bank-icon {
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.bank-title {
+    color: #ff5555;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.bank-message {
+    color: #fff;
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+.balance {
+    margin: 25px 0;
+    padding: 22px;
+    background: rgba(255,0,0,.12);
+    border-radius: 15px;
+}
+
+.balance small {
+    color: #d4baba;
+}
+
+.balance h2 {
+    color: #ff4242;
+    font-size: 38px;
+    margin-top: 8px;
+}
+
+.debit {
+    color: #ff7777;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.footer {
+    color: #b99b9b;
+    font-size: 12px;
+    margin-top: 25px;
+}
+
+@keyframes float {
+    50% { transform: translateY(-20px) rotate(5deg); }
 }
 
 @keyframes fall {
     to {
         transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
     }
 }
 
 @keyframes popup {
     0% { opacity: 0; transform: scale(.5); }
-    15% { opacity: 1; transform: scale(1); }
+    20% { opacity: 1; transform: scale(1); }
     80% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-50px); }
+    100% { opacity: 0; transform: translateY(-40px); }
 }
 
-@media(max-width: 480px) {
-    .phone { font-size: 95px; }
-    .subtitle { font-size: 16px; }
-    .message { font-size: 18px; }
+@keyframes reveal {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- Celebration screen -->
+
+<div class="container" id="celebrationScreen">
 
     <div class="badge">✨ SPECIAL SURPRISE ✨</div>
 
     <h1>CONGRATULATIONS!</h1>
 
-    <p class="subtitle">Guess what? Something AMAZING just happened!</p>
+    <p class="subtitle">
+        Something AMAZING just happened!
+    </p>
 
     <div class="phone">📱</div>
 
@@ -184,49 +215,98 @@ button:hover {
     </div>
 
     <p class="description">
-        It's official! Your brand-new iPhone is waiting for you.
-        <br>
         New phone. New memories. New beginnings! ❤️
+        <br><br>
+        Enjoy your brand-new iPhone!
     </p>
 
-    <div>
-        <button id="startBtn">🎊 CELEBRATE AGAIN</button>
-        <button id="stopBtn">STOP VIBRATION</button>
+</div>
+
+<!-- Banking reveal screen -->
+
+<div id="bankScreen">
+
+    <div class="bank-card">
+
+        <div class="bank-icon">💳</div>
+
+        <div class="bank-title">
+            TRANSACTION ALERT!
+        </div>
+
+        <div class="bank-message">
+            😱 OH NO! ALL AMOUNT DEBITED!
+        </div>
+
+        <div class="balance">
+
+            <small>AVAILABLE BANK BALANCE</small>
+
+            <h2>₹ 0.00</h2>
+
+            <div class="debit">
+                ↓ ALL AMOUNT DEBITED
+            </div>
+
+        </div>
+
+        <p style="color:#ffb2b2;font-weight:bold;">
+            💸 ZERO BANK BALANCE! 💸
+        </p>
+
+        <p class="footer">
+           
+        </p>
+
     </div>
-
-    <p class="status" id="status">
-        🎁 Your surprise has arrived!
-    </p>
 
 </div>
 
 <script>
 
-let vibrationInterval;
-let popupInterval;
+// Vibration attempt on page load
+function startVibration() {
 
-const statusText = document.getElementById("status");
-const startBtn = document.getElementById("startBtn");
-const stopBtn = document.getElementById("stopBtn");
+    if (!navigator.vibrate) return;
 
-// Confetti generator
+    navigator.vibrate([500, 100, 500, 100, 500]);
+
+    // Continue attempting vibration while the celebration is visible
+    const vibrationInterval = setInterval(() => {
+        if (document.getElementById("bankScreen").style.display === "flex") {
+            clearInterval(vibrationInterval);
+            navigator.vibrate(0);
+            return;
+        }
+
+        navigator.vibrate([500, 100, 500, 100, 500]);
+
+    }, 1800);
+
+}
+
+// Confetti
 function createConfetti() {
+
     const symbols = ["🎉", "✨", "🎊", "💖", "⭐", "🥳", "🎁"];
 
     const item = document.createElement("div");
+
     item.className = "confetti";
-    item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+    item.innerText = symbols[
+        Math.floor(Math.random() * symbols.length)
+    ];
 
     item.style.left = Math.random() * 100 + "vw";
-    item.style.animationDuration = (3 + Math.random() * 4) + "s";
+    item.style.animationDuration = (3 + Math.random() * 3) + "s";
     item.style.fontSize = (15 + Math.random() * 20) + "px";
 
     document.body.appendChild(item);
 
-    setTimeout(() => item.remove(), 7000);
+    setTimeout(() => item.remove(), 6000);
 }
 
-setInterval(createConfetti, 180);
+const confettiInterval = setInterval(createConfetti, 150);
 
 // Celebration popups
 const messages = [
@@ -238,8 +318,11 @@ const messages = [
 ];
 
 function showPopup() {
+
     const popup = document.createElement("div");
+
     popup.className = "popup";
+
     popup.innerText = messages[
         Math.floor(Math.random() * messages.length)
     ];
@@ -249,66 +332,34 @@ function showPopup() {
 
     document.body.appendChild(popup);
 
-    setTimeout(() => popup.remove(), 3000);
+    setTimeout(() => popup.remove(), 2500);
 }
 
-popupInterval = setInterval(showPopup, 2200);
+const popupInterval = setInterval(showPopup, 1000);
 
-// Vibration engine
-function startVibration() {
-
-    if (!navigator.vibrate) {
-        statusText.innerText =
-            "Your browser does not support vibration. Try Android Chrome.";
-
-        return;
-    }
-
-    clearInterval(vibrationInterval);
-
-    // Initial vibration
-    const success = navigator.vibrate(2000);
-
-    if (success === false) {
-        statusText.innerText =
-            "Vibration was blocked. Tap Celebrate Again to enable it.";
-
-        return;
-    }
-
-    // Repeat vibration
-    vibrationInterval = setInterval(() => {
-        navigator.vibrate(2000);
-    }, 2100);
-
-    statusText.innerText = "🎉 CELEBRATION MODE ACTIVATED! 🎉";
-}
-
-function stopVibration() {
-    clearInterval(vibrationInterval);
-
-    if (navigator.vibrate) {
-        navigator.vibrate(0);
-    }
-
-    statusText.innerText = "Vibration stopped. Enjoy your new iPhone! ❤️";
-}
-
-startBtn.addEventListener("click", startVibration);
-stopBtn.addEventListener("click", stopVibration);
-
-// Attempt automatic vibration on page load
+// Start everything immediately
 window.addEventListener("load", () => {
+
     startVibration();
-});
 
-// Stop vibration when the page is closed or hidden
-window.addEventListener("pagehide", stopVibration);
+    // After 4 seconds reveal the banking prank
+    setTimeout(() => {
 
-document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-        stopVibration();
-    }
+        document.getElementById("celebrationScreen").style.display = "none";
+
+        document.getElementById("bankScreen").style.display = "flex";
+
+        clearInterval(confettiInterval);
+        clearInterval(popupInterval);
+
+        document.querySelectorAll(".confetti, .popup").forEach(el => el.remove());
+
+        if (navigator.vibrate) {
+            navigator.vibrate(0);
+        }
+
+    }, 4000);
+
 });
 
 </script>
