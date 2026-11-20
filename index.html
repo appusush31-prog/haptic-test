@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haptic Feedback Simulation</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #startBtn { background-color: #cf6679; color: black; }
+        #stopBtn { background-color: #03dac6; color: black; }
+    </style>
+</head>
+<body>
+ 
+    <h2>Haptic Test Engine</h2>
+    <p>Simulating continuous motor patterns</p>
+    
+    <button id="startBtn" onclick="startVibration()">Start Loop</button>
+    <button id="stopBtn" onclick="stopVibration()">Stop Loop</button>
+ 
+    <script>
+        let vibrationInterval;
+ 
+        function startVibration() {
+            // Check if the browser supports the Vibration API
+            if (!navigator.vibrate) {
+                alert("Your browser or device does not support the Vibration API.");
+                return;
+            }
+ 
+            // Clear any existing intervals first
+            clearInterval(vibrationInterval);
+ 
+            // Trigger immediately: vibrate for 2000ms (2 seconds)
+            navigator.vibrate(2000);
+ 
+            // Repeat the vibration request every 2000ms to keep it continuous
+            vibrationInterval = setInterval(() => {
+                navigator.vibrate(2000);
+            }, 2000);
+        }
+ 
+        function stopVibration() {
+            // Clearing the interval stops future triggers
+            clearInterval(vibrationInterval);
+            // Passing 0 or an empty array to navigator.vibrate cancels active vibrations
+            navigator.vibrate(0);
+        }
+    </script>
+</body>
+</html>
